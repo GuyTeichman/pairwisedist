@@ -2,7 +2,11 @@
 History
 =======
 
-0.0.1 (2020-06-18)
+1.0.0 (2020-06-18)
 ------------------
 
-* First beta release on PyPI.
+* First release on PyPI.
+
+Added
+******
+* Added ys1_distance() and yr1_distance().
