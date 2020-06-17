@@ -8,7 +8,17 @@ def test_ys1_distance():
 
 
 def test_minmax_match_similarity():
-    assert False
+    inp = np.array([[1, 2, 3, 4],
+                    [5, 6.5, 5, 9],
+                    [-8, -9, 0, -3],
+                    [5, 5, 5, 5],
+                    [1, 2, 4, 3]])
+    truth = np.array([[1, 1, 0, 0.5, 0.5],
+                      [1, 1, 0, 0.5, 0.5],
+                      [0, 0, 1, 0, 0.5],
+                      [0.5, 0.5, 0, 1, 0.5],
+                      [0.5, 0.5, 0.5, 0.5, 1]])
+    assert np.all(truth == pairwisedist._minmax_match_similarity(inp))
 
 
 def test_correlation_star_pearson():
