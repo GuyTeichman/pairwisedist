@@ -24,7 +24,7 @@ def test_correlation_start_bad_input():
         pairwisedist._correlation_star(np.zeros(5), 'parson')
 
 
-def test_concordance_index_similarity():
+def test_slope_concordance_similarity():
     assert False
 
 
