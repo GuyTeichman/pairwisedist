@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.stats.mstats import rankdata
+from typing import Union
 
 
 def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
@@ -87,11 +88,33 @@ def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float 
 
 
 def _minmax_match_similarity(data: np.ndarray):
+    """
+    Calculates the minimum-maximum similarity similarity component of the YS1 and YR1 dissimilarity metrics. \
+    For every pair of samples (i,j), returns 1 if argmax(i) == argmax(j) and argmin(i) == argmax(j), \
+    returns 0.5 if argmax(i) == argmax(j) or argmin(i) == argmax(j), and returns 0 if neither.
+
+    :param data: an n-by-p numpy array of n samples by p features, to calculate minimum-maximum similarity on.
+    :type data: np.ndarray
+    :return: an n-by-n numpy array of min-max mismatch similarity scores.
+    :rtype: np.ndarray
+    """
     return (np.argmax(data, axis=1)[:, None] == np.argmax(data, axis=1)[None, :]) * 0.5 + (
             np.argmin(data, axis=1)[:, None] == np.argmin(data, axis=1)[None, :]) * 0.5
 
 
 def _correlation_star(data: np.ndarray, method: str):
+    """
+    Calculates the correlation* ((S* i,j) or (R* i,j)) similarity component of the YS1 and YR1 dissimilarity metrics. \
+    For every pair of samples (i,j), returns (corr(i,j) + 1) / 2, \
+    where corr is either the Pearson correlation or Spearman correlation.
+
+    :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+    :type data: np.ndarray
+    :param method: the correlation metric to use when calculating correlation*
+    :type method: 'pearson' or 'spearman'
+    :return: an n-by-n numpy array of correlation* similarity scores.
+    :rtype: np.ndarray
+    """
     assert isinstance(method, str), f"'method' must be a string. Instead got {type(method)}."
     if method == 'spearman':
         return (np.corrcoef(rankdata(data, axis=1)) + 1) / 2
@@ -99,9 +122,31 @@ def _correlation_star(data: np.ndarray, method: str):
 
 
 def _slope_concordance_similarity(data: np.ndarray):
+    """
+    Calculates the slope concordance (A i,j) similarity component of the YS1 and YR1 dissimilarity metrics. \
+    For every pair of samples (i,j), determines for each sample the incline (I) between every pair of \
+    consecutive features (P t, P t+1). I is the sign of (P t+1) - (P t), or 0 if they are equal. \
+    Then, we sum the number of matching incline pairs I(Pi t, Pi t+1) == I(Pj t, Pj t+1), \
+    and divide by the number of inclines (P-1) to get the slope concordance score (A i,j).
+
+    :param data: an n-by-p numpy array of n samples by p features, to calculate slope concordance similarity on.
+    :type data: np.ndarray
+    :return: an n-by-n numpy array of slope concordance similarity scores.
+    :rtype: np.ndarray
+    """
     incline_array = (1 * (data[:, 1:] > data[:, :-1]) - 1 * (data[:, 1:] < data[:, :-1]))
     return np.mean((incline_array[None, :, :] == incline_array[:, None, :]), axis=2)
 
 
-def _similarity_to_distance(similarity_matrix, max_val: int = 1):
+def _similarity_to_distance(similarity_matrix, max_val: Union[int, float] = 1):
+    """
+    Converts similarity scores to distance scores. Uses the formula max_val - similarity_matrix.
+
+    :param similarity_matrix: the similarity matrix to convert to distance matrix
+    :type similarity_matrix: np.ndarray
+    :param max_val: the maximum value of the given similarity score.
+    :type max_val: int or float (default: 1)
+    :return: a numpy array of of pairwise distance scores, the same shape as 'similarity_matrix'.
+    :rtype: np.ndarray
+    """
     return max_val - similarity_matrix
