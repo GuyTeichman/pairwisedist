@@ -116,6 +116,8 @@ def _correlation_star(data: np.ndarray, method: str):
     :rtype: np.ndarray
     """
     assert isinstance(method, str), f"'method' must be a string. Instead got {type(method)}."
+    method = method.lower()
+    assert method in {'spearman', 'pearson'}, f"'method' must be 'spearman' or 'pearson'. Instead got '{method}'."
     if method == 'spearman':
         return (np.corrcoef(rankdata(data, axis=1)) + 1) / 2
     return (np.corrcoef(data) + 1) / 2
