@@ -4,7 +4,7 @@ from typing import Union
 
 
 def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
-                 similarity: bool = False):
+                 similarity: bool = False) -> np.ndarray:
     """
     Calculates the pairwise YS1 distance matrix for a given array of n samples by p features, ranging between 0 and 1. \
     The YS1 dissimilarity is a metric that takes into account the Spearman rank correlation between the samples \
@@ -45,7 +45,7 @@ def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, om
 
 
 def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
-                 similarity: bool = False):
+                 similarity: bool = False) -> np.ndarray:
     """
     Calculates the pairwise YR1 distance matrix for a given array of n samples by p features, ranging between 0 and 1. \
     The YS1 dissimilarity is a metric that takes into account the Pearson linear correlation between the samples \
@@ -87,7 +87,7 @@ def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float 
     return _similarity_to_distance(similarity_mat)
 
 
-def _minmax_match_similarity(data: np.ndarray):
+def _minmax_match_similarity(data: np.ndarray) -> np.ndarray:
     """
     Calculates the minimum-maximum similarity similarity component of the YS1 and YR1 dissimilarity metrics. \
     For every pair of samples (i,j), returns 1 if argmax(i) == argmax(j) and argmin(i) == argmax(j), \
@@ -102,7 +102,7 @@ def _minmax_match_similarity(data: np.ndarray):
             np.argmin(data, axis=1)[:, None] == np.argmin(data, axis=1)[None, :]) * 0.5
 
 
-def _correlation_star(data: np.ndarray, method: str):
+def _correlation_star(data: np.ndarray, method: str) -> np.ndarray:
     """
     Calculates the correlation* ((S* i,j) or (R* i,j)) similarity component of the YS1 and YR1 dissimilarity metrics. \
     For every pair of samples (i,j), returns (corr(i,j) + 1) / 2, \
@@ -123,7 +123,7 @@ def _correlation_star(data: np.ndarray, method: str):
     return (np.corrcoef(data) + 1) / 2
 
 
-def _slope_concordance_similarity(data: np.ndarray):
+def _slope_concordance_similarity(data: np.ndarray) -> np.ndarray:
     """
     Calculates the slope concordance (A i,j) similarity component of the YS1 and YR1 dissimilarity metrics. \
     For every pair of samples (i,j), determines for each sample the incline (I) between every pair of \
@@ -140,7 +140,7 @@ def _slope_concordance_similarity(data: np.ndarray):
     return np.mean((incline_array[None, :, :] == incline_array[:, None, :]), axis=2)
 
 
-def _similarity_to_distance(similarity_matrix, max_val: Union[int, float] = 1):
+def _similarity_to_distance(similarity_matrix, max_val: Union[int, float] = 1) -> np.ndarray:
     """
     Converts similarity scores to distance scores. Uses the formula max_val - similarity_matrix.
 
