@@ -43,7 +43,6 @@ Distance functions:
   :caption: Distance functions:
 
   pairwisedist.pairwisedist
-  pairwisedist.pairwisedist
 
 
 .. toctree::
