@@ -16,10 +16,11 @@ Calculate the pairwise-distance matrix for an array of *n* samples by *p* featur
 How do I install *pairwisedist*?
 ---------------------------------
 You can install *pairwisedist* via PyPI.
-Use the following command in the python prompt::
+Use the following command in the python prompt:
 
-    pip install pairwisedist
+.. code-block:: console
 
+    $ pip install pairwisedist
 ----
 
 
