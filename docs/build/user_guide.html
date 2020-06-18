@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>User guide &mdash; pairwisedist 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api_reference.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pairwisedist
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">About pairwisedist:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">What is pairwisedist?</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/GuyTeichman/pairwisedist">GitHub page</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Credits</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How to use pairwisedist:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pairwisedist-module">pairwisedist module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-ys1-and-yr1-dissimilarity-metrics">The YS1 and YR1 dissimilarity metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Change history:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Distance functions:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pairwisedist.pairwisedist.html">pairwisedist.pairwisedist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pairwisedist.pairwisedist.html">pairwisedist.pairwisedist</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Indices and tables:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pairwisedist</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>User guide</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/user_guide.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="user-guide">
+<h1>User guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pairwisedist-module">
+<h2>pairwisedist module<a class="headerlink" href="#pairwisedist-module" title="Permalink to this headline">¶</a></h2>
+<p><em>pairwisedist</em> can calculate the pairwise-distance matrix for an array of <em>n</em> samples by <em>p</em> features.
+The distance metric currently supported by <em>pairwisedist</em> are the <a class="reference external" href="https://doi.org/10.1016/j.patrec.2007.09.015">Son and Baek dissimilarities</a> <em>YS1</em> and <em>YR1</em>.</p>
+<p>All functions in <em>pairwisedist</em> receive as input an n-by-p matrix.
+If the the matrix consists of row variables (parameter ‘rowvar’ == True - the default), <em>pairwisedist</em> will return an n-by-n pairwise distance matrix. Otherwise, the pairwise distance will be calculated on the columns, and <em>pairwisedist</em> will return a p-by-p pairwise distance matrix.</p>
+<div class="section" id="the-ys1-and-yr1-dissimilarity-metrics">
+<h3>The YS1 and YR1 dissimilarity metrics<a class="headerlink" href="#the-ys1-and-yr1-dissimilarity-metrics" title="Permalink to this headline">¶</a></h3>
+<p>The Son and Baek dissimilarity metrics, also know as YS1 and YR1, were developed as an improved correlation metric for time-series Gene Expression data, generated by Microarray or RNA Sequencing experiments.
+The goal of these distance metrics is to capture more accurately the shape of the expression pattern of each gene, and rank genes with similar expression patterns as more similar to one another.
+You can read more about these metrics in <a class="reference external" href="https://doi.org/10.1016/j.patrec.2007.09.015">The original publication</a>.</p>
+<p>In principle, the YS1 and YR1 scores integrate information about the the correlation between the different samples (Pearson correlation (R) for YR1 metric, Spearman correlation (S) for YS1 metric),
+the positon of the minimal and maximal values of each sample (M) and the agreement of their slopes (A)s.
+The weight of each of the components can be determined by the user using the parameters ‘omega1’, ‘omega2’ and ‘omega3’ respectively.
+The default weights recommended by the authors are 0.5, 0.25, 0.25.</p>
+<p>Due to the characteristics of the YS1 and YR2 metrics, the order of the features (columns) in the input matrix affect the values of the pairwise distance.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Guy Teichman
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
