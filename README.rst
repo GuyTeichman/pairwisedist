@@ -5,6 +5,7 @@ pairwisedist
 **Useful links:** `Documentation <https://guyteichman.github.io/pairwisedist>`_ |
 `Source code <https://github.com/GuyTeichman/pairwisedist>`_ |
 `Bug reports <https://github.com/GuyTeichman/pairwisedist/issues>`_ | |pipimage| | |travisci| | |downloads|
+
 ------
 
 What is *pairwisedist*?
