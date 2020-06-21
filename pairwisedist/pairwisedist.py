@@ -3,6 +3,36 @@ from scipy.stats.mstats import rankdata
 from typing import Union
 
 
+def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = False) -> np.ndarray:
+    """
+
+    :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+    :type data: np.ndarray
+    :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
+    If False, calculate the pairwise distance between the columns of 'data'.
+    :type rowvar: bool (default True)
+    :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
+    If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
+    :type similarity: bool (default False)
+    :return: an n-by-n numpy array of pairwise Jackknife dissimilarity scores.
+    :rtype: np.ndarray
+    """
+    if not rowvar:
+        data = data.T
+
+    similarity_mat = _jackknife(data, _correlation_star, method='pearson')
+
+    if similarity:
+        return similarity_mat
+    return _similarity_to_distance(similarity_mat)
+
+
+def _jackknife(data: np.ndarray, func, **kwargs) -> np.ndarray:
+    n = data.shape[1]
+    idx = np.arange(n)
+    return np.min(np.array([func(data[:, idx != i], **kwargs) for i in range(n)]), axis=0)
+
+
 def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
                  similarity: bool = False) -> np.ndarray:
     """

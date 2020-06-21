@@ -9,6 +9,21 @@ inp = np.array([[1, 2, 3, 4],
                 [1, 2, 4, 3]])
 
 
+def test_jackknife_distance():
+    truth_corr = np.array([[1., 0., 0.65465367, np.nan, 0.5],
+                           [0., 1., -0.58520574, np.nan, -0.37115374],
+                           [0.65465367, -0.58520574, 1., np.nan, 0.77771377],
+                           [np.nan, np.nan, np.nan, np.nan, np.nan],
+                           [0.5, -0.37115374, 0.77771377, np.nan, 1.]])
+    truth_sim = (truth_corr + 1) / 2
+    truth_dist = pairwisedist._similarity_to_distance(truth_sim)
+
+    assert np.isclose(pairwisedist.jackknife_distance(inp), truth_dist, equal_nan=True).all()
+    assert np.isclose(pairwisedist.jackknife_distance(inp, similarity=True), truth_sim, equal_nan=True).all()
+    assert np.isclose(pairwisedist.jackknife_distance(inp.T), pairwisedist.jackknife_distance(inp, rowvar=False),
+                      equal_nan=True).all()
+
+
 def test_ys1_distance():
     truth_default = np.array([[0., 0.17521945, 0.51666667, np.nan, 0.25833333],
                               [0.17521945, 0., 0.80270463, np.nan, 0.51531435],
@@ -105,3 +120,12 @@ def test_similarity_to_distance():
                       [1 / 3, 2 / 3, 1 / 3, 1, 0]])
 
     assert np.isclose(pairwisedist._similarity_to_distance(res), truth).all()
+
+
+def test_jackknife():
+    truth = np.array([2, 5.5, -6 - (2 / 3), 5, 2])
+    res = pairwisedist._jackknife(inp, np.mean, axis=1)
+    print("truth: ")
+    print(truth)
+    print(res)
+    assert np.isclose(truth, res).all()
