@@ -15,6 +15,8 @@ pairwisedist.pairwisedist
 .. autosummary::
     :toctree: .
     
+    jackknife_distance
+    
     yr1_distance
     
     ys1_distance

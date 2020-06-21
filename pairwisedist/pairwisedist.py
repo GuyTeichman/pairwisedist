@@ -5,6 +5,15 @@ from typing import Union
 
 def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = False) -> np.ndarray:
     """
+    Calculates the pairwise Jackknife-correlation distance matrix for a given array of n samples by p features, \
+    as described in (Heyer et al. 1999, Genome Res.). \
+    The Jackknife-correlation distance ranges between 0 and 1. \
+    The Jackknife-correlation coefficient is meant to reduce the number of false positives observed in \
+    Pearson linear correlation. \
+    This reduction is achieved by calculating the Pearson correlation coefficient p times, leaving out a single \
+    feature every time, and picking the minimal Pearson coefficient as the Jackknife coefficient. \
+    The Jackknife correlation coefficient for X,Y is formally defined as \
+    min(Pearson(X[idx != i],Y[idx != i]) for i in range(p)).
 
     :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
     :type data: np.ndarray
@@ -28,6 +37,18 @@ def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool =
 
 
 def _jackknife(data: np.ndarray, func, **kwargs) -> np.ndarray:
+    """
+    Returns the element-wise minimum of the output of 'func' over Jackknife resampling (leave-1-out).
+
+    :param data: an n-by-p numpy array of n samples by p features to iterate on.
+    :type data: np.ndarray
+    :param func: the function to calculate over 'data'
+    :type func: function
+    :param kwargs: additional constant arguments to supply to 'func'
+    :type kwargs: keworded-arguments
+    :return: an array of the element-wise minimum of the outputs of 'func' over Jackknife resampled arrays.
+    :rtype: numpy array
+    """
     n = data.shape[1]
     idx = np.arange(n)
     return np.min(np.array([func(data[:, idx != i], **kwargs) for i in range(n)]), axis=0)
@@ -36,7 +57,9 @@ def _jackknife(data: np.ndarray, func, **kwargs) -> np.ndarray:
 def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
                  similarity: bool = False) -> np.ndarray:
     """
-    Calculates the pairwise YS1 distance matrix for a given array of n samples by p features, ranging between 0 and 1. \
+    Calculates the pairwise YS1 distance matrix for a given array of n samples by p features, \
+    as described in (Son YS, Baek J 2008, Pattern Recognition Letters). \
+    The YS1 dissimilarity ranges between 0 and 1. \
     The YS1 dissimilarity is a metric that takes into account the Spearman rank correlation between the samples \
     (S* i,j), the positon of the minimal and maximal values of each sample (M i,j), \
     and the agreement of their slopes (A i,j). \
@@ -77,7 +100,9 @@ def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, om
 def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
                  similarity: bool = False) -> np.ndarray:
     """
-    Calculates the pairwise YR1 distance matrix for a given array of n samples by p features, ranging between 0 and 1. \
+    Calculates the pairwise YR1 distance matrix for a given array of n samples by p features,\
+    as described in (Son YS, Baek J 2008, Pattern Recognition Letters). \
+    The YS1 dissimilarity ranges between 0 and 1. \
     The YS1 dissimilarity is a metric that takes into account the Pearson linear correlation between the samples \
     (R* i,j), the positon of the minimal and maximal values of each sample (M i,j), \
     and the agreement of their slopes (A i,j). \

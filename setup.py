@@ -21,7 +21,7 @@ setup(
     author="Guy Teichman",
     author_email='guyteichman@gmail.com',
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
@@ -31,7 +31,6 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Topic :: Scientific/Engineering :: Information Analysis',
-        'Topic :: Scientific/Engineering :: Visualization',
     ],
     description='',
     install_requires=requirements,
