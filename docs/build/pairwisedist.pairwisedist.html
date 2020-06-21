@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pairwisedist.pairwisedist.yr1_distance" href="pairwisedist.pairwisedist.yr1_distance.html" />
+    <link rel="next" title="pairwisedist.pairwisedist.jackknife_distance" href="pairwisedist.pairwisedist.jackknife_distance.html" />
     <link rel="prev" title="History" href="history.html" /> 
 </head>
 
@@ -100,6 +100,7 @@
 <p class="caption"><span class="caption-text">Distance functions:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">pairwisedist.pairwisedist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pairwisedist.pairwisedist.jackknife_distance.html">pairwisedist.pairwisedist.jackknife_distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pairwisedist.pairwisedist.yr1_distance.html">pairwisedist.pairwisedist.yr1_distance</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pairwisedist.pairwisedist.ys1_distance.html">pairwisedist.pairwisedist.ys1_distance</a></li>
 </ul>
@@ -183,11 +184,14 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="pairwisedist.pairwisedist.yr1_distance.html#pairwisedist.pairwisedist.yr1_distance" title="pairwisedist.pairwisedist.yr1_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">yr1_distance</span></code></a>(data[, omega1, omega2, omega3, …])</p></td>
-<td><p>Calculates the pairwise YR1 distance matrix for a given array of n samples by p features, ranging between 0 and 1.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pairwisedist.pairwisedist.jackknife_distance.html#pairwisedist.pairwisedist.jackknife_distance" title="pairwisedist.pairwisedist.jackknife_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jackknife_distance</span></code></a>(data[, rowvar, similarity])</p></td>
+<td><p>Calculates the pairwise Jackknife-correlation distance matrix for a given array of n samples by p features,     as described in (Heyer et al.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pairwisedist.pairwisedist.ys1_distance.html#pairwisedist.pairwisedist.ys1_distance" title="pairwisedist.pairwisedist.ys1_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ys1_distance</span></code></a>(data[, omega1, omega2, omega3, …])</p></td>
-<td><p>Calculates the pairwise YS1 distance matrix for a given array of n samples by p features, ranging between 0 and 1.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pairwisedist.pairwisedist.yr1_distance.html#pairwisedist.pairwisedist.yr1_distance" title="pairwisedist.pairwisedist.yr1_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">yr1_distance</span></code></a>(data[, omega1, omega2, omega3, …])</p></td>
+<td><p>Calculates the pairwise YR1 distance matrix for a given array of n samples by p features,    as described in (Son YS, Baek J 2008, Pattern Recognition Letters).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pairwisedist.pairwisedist.ys1_distance.html#pairwisedist.pairwisedist.ys1_distance" title="pairwisedist.pairwisedist.ys1_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ys1_distance</span></code></a>(data[, omega1, omega2, omega3, …])</p></td>
+<td><p>Calculates the pairwise YS1 distance matrix for a given array of n samples by p features,     as described in (Son YS, Baek J 2008, Pattern Recognition Letters).</p></td>
 </tr>
 </tbody>
 </table>
@@ -201,7 +205,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pairwisedist.pairwisedist.yr1_distance.html" class="btn btn-neutral float-right" title="pairwisedist.pairwisedist.yr1_distance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pairwisedist.pairwisedist.jackknife_distance.html" class="btn btn-neutral float-right" title="pairwisedist.pairwisedist.jackknife_distance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="history.html" class="btn btn-neutral float-left" title="History" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

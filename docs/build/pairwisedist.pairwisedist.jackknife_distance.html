@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>History &mdash; pairwisedist 1.0.0 documentation</title>
+  <title>pairwisedist.pairwisedist.jackknife_distance &mdash; pairwisedist 1.0.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pairwisedist.pairwisedist" href="pairwisedist.pairwisedist.html" />
-    <link rel="prev" title="API Reference" href="api_reference.html" /> 
+    <link rel="next" title="pairwisedist.pairwisedist.yr1_distance" href="pairwisedist.pairwisedist.yr1_distance.html" />
+    <link rel="prev" title="pairwisedist.pairwisedist" href="pairwisedist.pairwisedist.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,22 +94,17 @@
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Change history:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">1.1.0 (2020-06-21)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#added">Added</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">1.0.0 (2020-06-18)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Added</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Distance functions:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="pairwisedist.pairwisedist.html">pairwisedist.pairwisedist</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="pairwisedist.pairwisedist.html">pairwisedist.pairwisedist</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pairwisedist.pairwisedist.jackknife_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairwisedist.pairwisedist.yr1_distance.html">pairwisedist.pairwisedist.yr1_distance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pairwisedist.pairwisedist.ys1_distance.html">pairwisedist.pairwisedist.ys1_distance</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Indices and tables:</span></p>
 <ul>
@@ -160,13 +155,15 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>History</li>
+          <li><a href="pairwisedist.pairwisedist.html">pairwisedist.pairwisedist</a> &raquo;</li>
+        
+      <li>pairwisedist.pairwisedist.jackknife_distance</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/history.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/pairwisedist.pairwisedist.jackknife_distance.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,29 +176,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="history">
-<h1>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>1.1.0 (2020-06-21)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="added">
-<h3>Added<a class="headerlink" href="#added" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Added jackknife_distance().</p></li>
+  <div class="section" id="pairwisedist-pairwisedist-jackknife-distance">
+<h1>pairwisedist.pairwisedist.jackknife_distance<a class="headerlink" href="#pairwisedist-pairwisedist-jackknife-distance" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="pairwisedist.pairwisedist.jackknife_distance">
+<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">jackknife_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">rowvar</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">similarity</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#pairwisedist.pairwisedist.jackknife_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the pairwise Jackknife-correlation distance matrix for a given array of n samples by p features,     as described in (Heyer et al. 1999, Genome Res.).     The Jackknife-correlation distance ranges between 0 and 1.     The Jackknife-correlation coefficient is meant to reduce the number of false positives observed in     Pearson linear correlation.     This reduction is achieved by calculating the Pearson correlation coefficient p times, leaving out a single     feature every time, and picking the minimal Pearson coefficient as the Jackknife coefficient.     The Jackknife correlation coefficient for X,Y is formally defined as     min(Pearson(X[idx != i],Y[idx != i]) for i in range(p)).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.ndarray</em>) – an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.</p></li>
+<li><p><strong>rowvar</strong> (<em>bool</em><em> (</em><em>default True</em><em>)</em>) – If True, calculates the pairwise distance between the rows of ‘data’.     If False, calculate the pairwise distance between the columns of ‘data’.</p></li>
+<li><p><strong>similarity</strong> (<em>bool</em><em> (</em><em>default False</em><em>)</em>) – If False, returns a pairwise distance matrix (0 means closest, 1 means furthest).     If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id2">
-<h2>1.0.0 (2020-06-18)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>First release on PyPI.</p></li>
-</ul>
-<div class="section" id="id3">
-<h3>Added<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Added ys1_distance() and yr1_distance().</p></li>
-</ul>
-</div>
-</div>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an n-by-n numpy array of pairwise Jackknife dissimilarity scores.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -212,10 +209,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pairwisedist.pairwisedist.html" class="btn btn-neutral float-right" title="pairwisedist.pairwisedist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pairwisedist.pairwisedist.yr1_distance.html" class="btn btn-neutral float-right" title="pairwisedist.pairwisedist.yr1_distance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="api_reference.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pairwisedist.pairwisedist.html" class="btn btn-neutral float-left" title="pairwisedist.pairwisedist" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
