@@ -9,7 +9,7 @@ inp = np.array([[1, 2, 3, 4],
                 [1, 2, 4, 3]])
 
 
-def test_pearson_distance():
+def test_spearman_distance():
     truth_corr = np.corrcoef(pairwisedist.rankdata(inp, axis=1))
     truth_sim = (truth_corr + 1) / 2
     truth_dist = pairwisedist._similarity_to_distance(truth_sim)
