@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>User guide &mdash; pairwisedist 1.0.0 documentation</title>
+  <title>User guide &mdash; pairwisedist 1.2.0 documentation</title>
   
 
   
@@ -181,7 +181,7 @@
 <div class="section" id="pairwisedist-module">
 <h2>pairwisedist module<a class="headerlink" href="#pairwisedist-module" title="Permalink to this headline">¶</a></h2>
 <p><em>pairwisedist</em> can calculate the pairwise-distance matrix for an array of <em>n</em> samples by <em>p</em> features.
-The distance metric currently supported by <em>pairwisedist</em> are the <a class="reference external" href="https://doi.org/10.1101%2Fgr.9.11.1106">Jackknife-correlation dissimilarity</a> and the <a class="reference external" href="https://doi.org/10.1016/j.patrec.2007.09.015">Son and Baek dissimilarities</a> <em>YS1</em> and <em>YR1</em>.</p>
+The distance metric currently supported by <em>pairwisedist</em> are the <a class="reference external" href="https://doi.org/10.1101%2Fgr.9.11.1106">Jackknife-correlation dissimilarity</a>, the <a class="reference external" href="https://doi.org/10.1016/j.patrec.2007.09.015">Son and Baek dissimilarities</a> <em>YS1</em> and <em>YR1</em>, the Pearson correlation dissimilarity and the Spearman correlation dissimilarity.</p>
 <p>All functions in <em>pairwisedist</em> receive as input an n-by-p matrix.
 If the the matrix consists of row variables (parameter ‘rowvar’ == True - the default), <em>pairwisedist</em> will return an n-by-n pairwise distance matrix. Otherwise, the pairwise distance will be calculated on the columns, and <em>pairwisedist</em> will return a p-by-p pairwise distance matrix.</p>
 <div class="section" id="the-jackknife-correlation-dissimilarity-metric">

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API Reference &mdash; pairwisedist 1.0.0 documentation</title>
+  <title>API Reference &mdash; pairwisedist 1.2.0 documentation</title>
   
 
   
@@ -181,101 +181,6 @@
 <h2>pairwisedist.pairwisedist<a class="headerlink" href="#pairwisedist-pairwisedist" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt>
-<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">_correlation_star</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
-<dd><p>Calculates the correlation* ((S* i,j) or (R* i,j)) similarity component of the YS1 and YR1 dissimilarity metrics.     For every pair of samples (i,j), returns (corr(i,j) + 1) / 2,     where corr is either the Pearson correlation or Spearman correlation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>np.ndarray</em>) – an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.</p></li>
-<li><p><strong>method</strong> (<em>'pearson'</em><em> or </em><em>'spearman'</em>) – the correlation metric to use when calculating correlation*</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>an n-by-n numpy array of correlation* similarity scores.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">_jackknife</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
-<dd><p>Returns the element-wise minimum of the output of ‘func’ over Jackknife resampling (leave-1-out).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>np.ndarray</em>) – an n-by-p numpy array of n samples by p features to iterate on.</p></li>
-<li><p><strong>func</strong> (<em>function</em>) – the function to calculate over ‘data’</p></li>
-<li><p><strong>kwargs</strong> (<em>keworded-arguments</em>) – additional constant arguments to supply to ‘func’</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>an array of the element-wise minimum of the outputs of ‘func’ over Jackknife resampled arrays.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">_minmax_match_similarity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
-<dd><p>Calculates the minimum-maximum similarity similarity component of the YS1 and YR1 dissimilarity metrics.     For every pair of samples (i,j), returns 1 if argmax(i) == argmax(j) and argmin(i) == argmax(j),     returns 0.5 if argmax(i) == argmax(j) or argmin(i) == argmax(j), and returns 0 if neither.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>np.ndarray</em>) – an n-by-p numpy array of n samples by p features, to calculate minimum-maximum similarity on.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>an n-by-n numpy array of min-max mismatch similarity scores.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">_similarity_to_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">similarity_matrix</span></em>, <em class="sig-param"><span class="n">max_val</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
-<dd><p>Converts similarity scores to distance scores. Uses the formula max_val - similarity_matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>similarity_matrix</strong> (<em>np.ndarray</em>) – the similarity matrix to convert to distance matrix</p></li>
-<li><p><strong>max_val</strong> (<em>int</em><em> or </em><em>float</em><em> (</em><em>default: 1</em><em>)</em>) – the maximum value of the given similarity score.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a numpy array of of pairwise distance scores, the same shape as ‘similarity_matrix’.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
-<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">_slope_concordance_similarity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
-<dd><p>Calculates the slope concordance (A i,j) similarity component of the YS1 and YR1 dissimilarity metrics.     For every pair of samples (i,j), determines for each sample the incline (I) between every pair of     consecutive features (P t, P t+1). I is the sign of (P t+1) - (P t), or 0 if they are equal.     Then, we sum the number of matching incline pairs I(Pi t, Pi t+1) == I(Pj t, Pj t+1),     and divide by the number of inclines (P-1) to get the slope concordance score (A i,j).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>np.ndarray</em>) – an n-by-p numpy array of n samples by p features, to calculate slope concordance similarity on.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>an n-by-n numpy array of slope concordance similarity scores.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt>
 <code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">jackknife_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">rowvar</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">similarity</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
 <dd><p>Calculates the pairwise Jackknife-correlation distance matrix for a given array of n samples by p features,     as described in (Heyer et al. 1999, Genome Res.).     The Jackknife-correlation distance ranges between 0 and 1.     The Jackknife-correlation coefficient is meant to reduce the number of false positives observed in     Pearson linear correlation.     This reduction is achieved by calculating the Pearson correlation coefficient p times, leaving out a single     feature every time, and picking the minimal Pearson coefficient as the Jackknife coefficient.     The Jackknife correlation coefficient for X,Y is formally defined as     min(Pearson(X[idx != i],Y[idx != i]) for i in range(p)).</p>
 <dl class="field-list simple">
@@ -293,6 +198,36 @@
 <dd class="field-odd"><p>np.ndarray</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">pearson_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">rowvar</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">similarity</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
+<dd><p>Calculates the pairwise Pearson-correlation distance matrix for a given array of n samples by p features.
+The Pearson-correlation distance ranges between 0 (linear correlation coefficient is 1)     and 1 (linear correlation coefficient is -1).
+:param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+:type data: np.ndarray
+:param rowvar: If True, calculates the pairwise distance between the rows of ‘data’.     If False, calculate the pairwise distance between the columns of ‘data’.
+:type rowvar: bool (default True)
+:param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest).     If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
+:type similarity: bool (default False)
+:return: an n-by-n numpy array of pairwise Pearson-correlation dissimilarity scores.
+:rtype: np.ndarray</p>
+</dd></dl>
+
+<dl class="py function">
+<dt>
+<code class="sig-prename descclassname">pairwisedist.pairwisedist.</code><code class="sig-name descname">spearman_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">rowvar</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">similarity</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray</dt>
+<dd><p>Calculates the pairwise Spearman-correlation distance matrix for a given array of n samples by p features.
+The Spearman-correlation distance ranges between 0 (correlation coefficient is 1)         and 1 (correlation coefficient is -1).
+:param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+:type data: np.ndarray
+:param rowvar: If True, calculates the pairwise distance between the rows of ‘data’.         If False, calculate the pairwise distance between the columns of ‘data’.
+:type rowvar: bool (default True)
+:param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest).         If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
+:type similarity: bool (default False)
+:return: an n-by-n numpy array of pairwise Spearman-correlation dissimilarity scores.
+:rtype: np.ndarray</p>
 </dd></dl>
 
 <dl class="py function">
