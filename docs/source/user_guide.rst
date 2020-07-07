@@ -8,7 +8,7 @@ pairwisedist module
 ****************************
 
 *pairwisedist* can calculate the pairwise-distance matrix for an array of *n* samples by *p* features.
-The distance metric currently supported by *pairwisedist* are the `Jackknife-correlation dissimilarity <https://doi.org/10.1101%2Fgr.9.11.1106>`_ and the `Son and Baek dissimilarities <https://doi.org/10.1016/j.patrec.2007.09.015>`_ *YS1* and *YR1*.
+The distance metric currently supported by *pairwisedist* are the `Jackknife-correlation dissimilarity <https://doi.org/10.1101%2Fgr.9.11.1106>`_, the `Son and Baek dissimilarities <https://doi.org/10.1016/j.patrec.2007.09.015>`_ *YS1* and *YR1*, the Pearson correlation dissimilarity and the Spearman correlation dissimilarity.
 
 All functions in *pairwisedist* receive as input an n-by-p matrix.
 If the the matrix consists of row variables (parameter 'rowvar' == True - the default), *pairwisedist* will return an n-by-n pairwise distance matrix. Otherwise, the pairwise distance will be calculated on the columns, and *pairwisedist* will return a p-by-p pairwise distance matrix.

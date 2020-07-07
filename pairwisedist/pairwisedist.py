@@ -2,6 +2,78 @@ import numpy as np
 from scipy.stats.mstats import rankdata
 from typing import Union
 
+__all__ = ['pearson_distance', 'spearman_distance', 'jackknife_distance', 'ys1_distance', 'yr1_distance']
+
+
+def _rowvar(data: np.ndarray, rowvar: bool = True) -> np.ndarray:
+    """
+    Returns data if rowvar = True, data.transpose() otherwise.
+    :param data: array to be transposed
+    :type data: np.ndarray
+    :param rowvar: if False, array will be transposed before being returned.
+    :type rowvar: bool
+    :rtype: np.ndarray
+    """
+    if rowvar:
+        return data
+    return data.T
+
+
+def _similarity(similarity_mat: np.ndarray, similarity: bool) -> np.ndarray:
+    """
+    Returns similarity_mat if similarity = True, otherwise returns _similarity_to_distance(similarity_mat)
+    :param similarity_mat: similarity matrix
+    :type similarity_mat: np.ndarray
+    :param similarity: if False, turns similarity matrix into distance matrix and returns it.
+    :type similarity: bool
+    :rtype: np.ndarray
+    """
+    if similarity:
+        return similarity_mat
+    return _similarity_to_distance(similarity_mat)
+
+
+def spearman_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = False) -> np.ndarray:
+    """
+        Calculates the pairwise Spearman-correlation distance matrix for a given array of n samples by p features.
+        The Spearman-correlation distance ranges between 0 (correlation coefficient is 1) \
+        and 1 (correlation coefficient is -1).
+        :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+        :type data: np.ndarray
+        :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
+        If False, calculate the pairwise distance between the columns of 'data'.
+        :type rowvar: bool (default True)
+        :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
+        If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
+        :type similarity: bool (default False)
+        :return: an n-by-n numpy array of pairwise Spearman-correlation dissimilarity scores.
+        :rtype: np.ndarray
+        """
+    data = _rowvar(data, rowvar)
+    similarity_mat = _correlation_star(data, 'spearman')
+    return _similarity(similarity_mat, similarity)
+
+
+def pearson_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = False) -> np.ndarray:
+    """
+    Calculates the pairwise Pearson-correlation distance matrix for a given array of n samples by p features.
+    The Pearson-correlation distance ranges between 0 (linear correlation coefficient is 1) \
+    and 1 (linear correlation coefficient is -1).
+    :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+    :type data: np.ndarray
+    :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
+    If False, calculate the pairwise distance between the columns of 'data'.
+    :type rowvar: bool (default True)
+    :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
+    If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
+    :type similarity: bool (default False)
+    :return: an n-by-n numpy array of pairwise Pearson-correlation dissimilarity scores.
+    :rtype: np.ndarray
+    """
+    data = _rowvar(data, rowvar)
+    similarity_mat = _correlation_star(data, 'pearson')
+    return _similarity(similarity_mat, similarity)
+
 
 def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = False) -> np.ndarray:
     """
@@ -26,14 +98,9 @@ def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool =
     :return: an n-by-n numpy array of pairwise Jackknife dissimilarity scores.
     :rtype: np.ndarray
     """
-    if not rowvar:
-        data = data.T
-
+    data = _rowvar(data, rowvar)
     similarity_mat = _jackknife(data, _correlation_star, method='pearson')
-
-    if similarity:
-        return similarity_mat
-    return _similarity_to_distance(similarity_mat)
+    return _similarity(similarity_mat, similarity)
 
 
 def _jackknife(data: np.ndarray, func, **kwargs) -> np.ndarray:
@@ -88,13 +155,10 @@ def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, om
     """
     assert (omega1 + omega2 + omega3) == 1, \
         f"All three omega values must sum to 1. Instead they sum to {omega1 + omega2 + omega3}"
-    if not rowvar:
-        data = data.T
+    data = _rowvar(data, rowvar)
     similarity_mat = omega1 * _correlation_star(data, 'spearman') + omega2 * _slope_concordance_similarity(
         data) + omega3 * _minmax_match_similarity(data)
-    if similarity:
-        return similarity_mat
-    return _similarity_to_distance(similarity_mat)
+    return _similarity(similarity_mat, similarity)
 
 
 def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float = 0.25, rowvar: bool = True,
@@ -133,13 +197,10 @@ def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float 
     assert isinstance(data, np.ndarray), f"'data' must be a numpy array. Instead got {type(data)}."
     assert (omega1 + omega2 + omega3) == 1, \
         f"All three omega values must sum to 1. Instead they sum to {omega1 + omega2 + omega3}"
-    if not rowvar:
-        data = data.T
+    data = _rowvar(data, rowvar)
     similarity_mat = omega1 * _correlation_star(data, 'pearson') + omega2 * _slope_concordance_similarity(
         data) + omega3 * _minmax_match_similarity(data)
-    if similarity:
-        return similarity_mat
-    return _similarity_to_distance(similarity_mat)
+    return _similarity(similarity_mat, similarity)
 
 
 def _minmax_match_similarity(data: np.ndarray) -> np.ndarray:

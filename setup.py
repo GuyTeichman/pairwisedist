@@ -47,6 +47,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/GuyTeichman/pairwisedist',
-    version='1.1.0',
+    version='1.2.0',
     zip_safe=False,
 )
