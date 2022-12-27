@@ -2,6 +2,26 @@
 History
 =======
 
+1.3.0 (2022-12-27)
+------------------
+
+Added
+******
+* Added sharpened_cosine_distance().
+
+Changed
+********
+* Added support for Python 3.8-3.10, and relinquished support for Python <=3.7.
+* Updated versions of requirements and developer requirements.
+
+1.2.0 (2020-06-21)
+------------------
+
+Added
+******
+* Updated API to make imports easier (for example: 'from pairwisedist import jackknife_distance' instead of 'from pairwisedist.pairwisedist import jackknife_distance').
+* Added pearson_distance() and spearman_distance().
+
 1.1.0 (2020-06-21)
 ------------------
 

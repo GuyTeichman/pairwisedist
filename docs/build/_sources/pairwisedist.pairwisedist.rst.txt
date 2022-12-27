@@ -17,6 +17,10 @@ pairwisedist.pairwisedist
     
     jackknife_distance
     
+    pearson_distance
+    
+    spearman_distance
+    
     yr1_distance
     
     ys1_distance

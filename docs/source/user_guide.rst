@@ -8,7 +8,7 @@ pairwisedist module
 ****************************
 
 *pairwisedist* can calculate the pairwise-distance matrix for an array of *n* samples by *p* features.
-The distance metric currently supported by *pairwisedist* are the `Jackknife-correlation dissimilarity <https://doi.org/10.1101%2Fgr.9.11.1106>`_ and the `Son and Baek dissimilarities <https://doi.org/10.1016/j.patrec.2007.09.015>`_ *YS1* and *YR1*.
+The distance metric currently supported by *pairwisedist* are the `Jackknife-correlation dissimilarity <https://doi.org/10.1101%2Fgr.9.11.1106>`_, the `Son and Baek dissimilarities <https://doi.org/10.1016/j.patrec.2007.09.015>`_ *YS1* and *YR1*, the Pearson correlation dissimilarity and the Spearman correlation dissimilarity.
 
 All functions in *pairwisedist* receive as input an n-by-p matrix.
 If the the matrix consists of row variables (parameter 'rowvar' == True - the default), *pairwisedist* will return an n-by-n pairwise distance matrix. Otherwise, the pairwise distance will be calculated on the columns, and *pairwisedist* will return a p-by-p pairwise distance matrix.
@@ -49,4 +49,16 @@ The YR1 correlation coefficient is formally defined as::
     YR1(X,Y) = omega1 * R(X,Y) + omega2 * M(X,Y) + omega3 * A(X,Y)
 
 
-Due to the characteristics of the YS1 and YR2 metrics, the order of the features (columns) in the input matrix affect the values of the pairwise distance. 
+Due to the characteristics of the YS1 and YR2 metrics, the order of the features (columns) in the input matrix affect the values of the pairwise distance.
+
+
+
+The sharpened cosine distance metric
+=====================================
+
+Sharpened cosine distance is a distance metric that was suggested in a since-deleted tweet by Brandon Rohrer.
+It was suggested as an alternative to convolution for the purpose of detecting specific features, offering highest sensitivity and specificity for the shape of the feature instead of its absolute magnitude.
+Rohrer has since implemented a version of this distance metric for neural networks (Jax, Keras, and PyTorch), which you can find `here <https://github.com/brohrer/sharpened-cosine-similarity>`_.
+
+The *pairwisedist* implementation of this distance metric aims for a different purpose - comparing the similarity (or difference) between the gene expression distribution of two genes over different time points or conditions.
+This purpose is supported by the properties of sharpened cosine distance - specificity towards the shape of the distribution, and not its absolute value.

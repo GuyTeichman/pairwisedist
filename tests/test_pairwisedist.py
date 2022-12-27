@@ -9,6 +9,58 @@ inp = np.array([[1, 2, 3, 4],
                 [1, 2, 4, 3]])
 
 
+def test_sharpened_cosine_distance():
+    truth = truth = np.array([[1, 0.33560609, 0.50002998, 0.42575679, 0.33708719],
+                              [0.33560609, 1, 0.50574587, 0.27300692, 0.43677134],
+                              [0.50002998, 0.50574587, 1, 0.51185475, 0.50000804],
+                              [0.42575679, 0.27300692, 0.51185475, 1, 0.42575679],
+                              [0.33708719, 0.43677134, 0.50000804, 0.42575679, 1]])
+    print(pairwisedist.sharpened_cosine_distance(inp))
+    assert np.isclose(pairwisedist.sharpened_cosine_distance(inp), truth, equal_nan=True).all()
+    assert np.isclose(pairwisedist.sharpened_cosine_distance(inp.T),
+                      pairwisedist.sharpened_cosine_distance(inp, rowvar=False), equal_nan=True).all()
+
+
+def test_spearman_distance():
+    truth_corr = np.corrcoef(pairwisedist.rankdata(inp, axis=1))
+    truth_sim = (truth_corr + 1) / 2
+    truth_dist = pairwisedist._similarity_to_distance(truth_sim)
+
+    assert np.isclose(pairwisedist.spearman_distance(inp), truth_dist, equal_nan=True).all()
+    assert np.isclose(pairwisedist.spearman_distance(inp, similarity=True), truth_sim, equal_nan=True).all()
+    assert np.isclose(pairwisedist.spearman_distance(inp.T), pairwisedist.spearman_distance(inp, rowvar=False),
+                      equal_nan=True).all()
+
+
+def test_pearson_distance():
+    truth_corr = np.corrcoef(inp)
+    truth_sim = (truth_corr + 1) / 2
+    truth_dist = pairwisedist._similarity_to_distance(truth_sim)
+
+    assert np.isclose(pairwisedist.pearson_distance(inp), truth_dist, equal_nan=True).all()
+    assert np.isclose(pairwisedist.pearson_distance(inp, similarity=True), truth_sim, equal_nan=True).all()
+    assert np.isclose(pairwisedist.pearson_distance(inp.T), pairwisedist.pearson_distance(inp, rowvar=False),
+                      equal_nan=True).all()
+
+
+def test_rowvar():
+    truth = inp
+    truth_t = inp.transpose()
+    assert np.all(truth == pairwisedist._rowvar(inp, True))
+    assert np.all(truth_t == pairwisedist._rowvar(inp, False))
+
+
+def test_similarity():
+    truth = np.array([[1., 0., 0.4, np.nan, 0.4465],
+                      [0., -1., -0.58520574, 0.2, -0.3714],
+                      [-0.87, -0.5120574, 1., 1, 0.7777],
+                      [0, 0, 0, 0.432, -0.89],
+                      [-0.5, 0.37, 0.77377, np.nan, 1.]])
+
+    assert np.isclose(truth, pairwisedist._similarity(truth, True), equal_nan=True).all()
+    assert np.isclose(1 - truth, pairwisedist._similarity(truth, False), equal_nan=True).all()
+
+
 def test_jackknife_distance():
     truth_corr = np.array([[1., 0., 0.65465367, np.nan, 0.5],
                            [0., 1., -0.58520574, np.nan, -0.37115374],
