@@ -9,6 +9,18 @@ inp = np.array([[1, 2, 3, 4],
                 [1, 2, 4, 3]])
 
 
+def test_sharpened_cosine_distance():
+    truth = truth = np.array([[1, 0.33560609, 0.50002998, 0.42575679, 0.33708719],
+                              [0.33560609, 1, 0.50574587, 0.27300692, 0.43677134],
+                              [0.50002998, 0.50574587, 1, 0.51185475, 0.50000804],
+                              [0.42575679, 0.27300692, 0.51185475, 1, 0.42575679],
+                              [0.33708719, 0.43677134, 0.50000804, 0.42575679, 1]])
+    print(pairwisedist.sharpened_cosine_distance(inp))
+    assert np.isclose(pairwisedist.sharpened_cosine_distance(inp), truth, equal_nan=True).all()
+    assert np.isclose(pairwisedist.sharpened_cosine_distance(inp.T),
+                      pairwisedist.sharpened_cosine_distance(inp, rowvar=False), equal_nan=True).all()
+
+
 def test_spearman_distance():
     truth_corr = np.corrcoef(pairwisedist.rankdata(inp, axis=1))
     truth_sim = (truth_corr + 1) / 2
