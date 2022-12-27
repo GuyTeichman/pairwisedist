@@ -35,7 +35,7 @@ setup(
     ],
     description='',
     install_requires=requirements,
-    python_requires='>3.6',
+    python_requires='>=3.7',
     license="License :: OSI Approved :: Apache Software License",
     long_description=readme + '\n\n' + history,
     include_package_data=True,
