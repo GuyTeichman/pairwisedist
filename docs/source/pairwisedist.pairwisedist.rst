@@ -1,4 +1,4 @@
-pairwisedist.pairwisedist
+﻿pairwisedist.pairwisedist
 =========================
 
 .. rubric:: Description
@@ -18,6 +18,8 @@ pairwisedist.pairwisedist
     jackknife_distance
     
     pearson_distance
+    
+    sharpened_cosine_distance
     
     spearman_distance
     
