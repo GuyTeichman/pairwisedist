@@ -80,7 +80,8 @@ def sharpened_cosine_distance(data: np.ndarray, sharpen_exponent: float = 16, ex
                               rowvar: bool = True, similarity: bool = False) -> np.ndarray:
     """
     Calculates the pairwise sharpened cosine distance matrix for a given array of n samples by p features, \
-    as described in TODO. \
+    as described in a since-deleted tweet by Brandon Rohrer. \
+    You can read more about sharpened cosine distance `here <https://github.com/brohrer/sharpened-cosine-similarity>_. \
     The sharpened cosine distance ranges between 0 (highest similarity) and 1 (highest dissimilarity).
     :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
     :type data: np.ndarray
