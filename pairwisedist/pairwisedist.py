@@ -2,7 +2,8 @@ import numpy as np
 from scipy.stats.mstats import rankdata
 from typing import Union
 
-__all__ = ['pearson_distance', 'spearman_distance', 'jackknife_distance', 'ys1_distance', 'yr1_distance']
+__all__ = ['pearson_distance', 'spearman_distance', 'jackknife_distance', 'ys1_distance', 'yr1_distance',
+           'sharpened_cosine_distance']
 
 
 def _rowvar(data: np.ndarray, rowvar: bool = True) -> np.ndarray:
@@ -42,10 +43,10 @@ def spearman_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = 
         :type data: np.ndarray
         :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
         If False, calculate the pairwise distance between the columns of 'data'.
-        :type rowvar: bool (default True)
+        :type rowvar: bool (default=True)
         :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
         If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
-        :type similarity: bool (default False)
+        :type similarity: bool (default=False)
         :return: an n-by-n numpy array of pairwise Spearman-correlation dissimilarity scores.
         :rtype: np.ndarray
         """
@@ -63,16 +64,58 @@ def pearson_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = F
     :type data: np.ndarray
     :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
     If False, calculate the pairwise distance between the columns of 'data'.
-    :type rowvar: bool (default True)
+    :type rowvar: bool (default=True)
     :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
     If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
-    :type similarity: bool (default False)
+    :type similarity: bool (default=False)
     :return: an n-by-n numpy array of pairwise Pearson-correlation dissimilarity scores.
     :rtype: np.ndarray
     """
     data = _rowvar(data, rowvar)
     similarity_mat = _correlation_star(data, 'pearson')
     return _similarity(similarity_mat, similarity)
+
+
+def sharpened_cosine_distance(data: np.ndarray, sharpen_exponent: float = 16, exp_noise_floor: float = 0.1,
+                              rowvar: bool = True, similarity: bool = False) -> np.ndarray:
+    """
+    Calculates the pairwise sharpened cosine distance matrix for a given array of n samples by p features, \
+    as described in TODO. \
+    The sharpened cosine distance ranges between 0 (highest similarity) and 1 (highest dissimilarity).
+    :param data: an n-by-p numpy array of n samples by p features, to calculate pairwise distance on.
+    :type data: np.ndarray
+    :param sharpen_exponent: 
+    :type sharpen_exponent: float (default=16)
+    :param exp_noise_floor: 
+    :type exp_noise_floor: float (default=0.1)
+    :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
+    If False, calculate the pairwise distance between the columns of 'data'.
+    :type rowvar: bool (default=True)
+    :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
+    If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
+    :type similarity: bool (default=False)
+    :return: an n-by-n numpy array of pairwise sharpened cosine distance scores.
+    :rtype: np.ndarray
+    """
+    data = _rowvar(data, rowvar)
+    similarity_mat = _sharpened_cosine(data, sharpen_exponent, exp_noise_floor)
+    return _similarity(similarity_mat, similarity)
+
+
+def _sharpened_cosine(data, sharpen_exponent: float, exp_noise_floor: float) -> np.ndarray:
+    n_samples = data.shape[0]
+    similarities = np.zeros((n_samples, n_samples))
+    for i in range(n_samples):
+        for j in range(i + 1, n_samples):
+            dot_product = np.dot(data[i, :], data[j, :])
+            this_similarity = np.sign(dot_product) * (
+                    dot_product / ((np.linalg.norm(data[i, :]) + exp_noise_floor) *
+                                   (np.linalg.norm(data[j, :]) + exp_noise_floor))) ** sharpen_exponent
+
+            this_similarity = (this_similarity + 1) / 2
+            similarities[i, j] = this_similarity
+            similarities[j, i] = this_similarity
+    return similarities
 
 
 def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool = False) -> np.ndarray:
@@ -91,10 +134,10 @@ def jackknife_distance(data: np.ndarray, rowvar: bool = True, similarity: bool =
     :type data: np.ndarray
     :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
     If False, calculate the pairwise distance between the columns of 'data'.
-    :type rowvar: bool (default True)
+    :type rowvar: bool (default=True)
     :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
     If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
-    :type similarity: bool (default False)
+    :type similarity: bool (default=False)
     :return: an n-by-n numpy array of pairwise Jackknife dissimilarity scores.
     :rtype: np.ndarray
     """
@@ -146,10 +189,10 @@ def ys1_distance(data: np.ndarray, omega1: float = 0.5, omega2: float = 0.25, om
     :type omega3: float between 0 and 1
     :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
     If False, calculate the pairwise distance between the columns of 'data'.
-    :type rowvar: bool (default True)
+    :type rowvar: bool (default=True)
     :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
     If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
-    :type similarity: bool (default False)
+    :type similarity: bool (default=False)
     :return: an n-by-n numpy array of pairwise YS1 dissimilarity scores.
     :rtype: np.ndarray
     """
@@ -186,10 +229,10 @@ def yr1_distance(data, omega1: float = 0.5, omega2: float = 0.25, omega3: float 
     :type omega3: float between 0 and 1
     :param rowvar: If True, calculates the pairwise distance between the rows of 'data'. \
     If False, calculate the pairwise distance between the columns of 'data'.
-    :type rowvar: bool (default True)
+    :type rowvar: bool (default=True)
     :param similarity: If False, returns a pairwise distance matrix (0 means closest, 1 means furthest). \
     If True, returns a pairwise similarity matrix (1 means most similar, 0 means most different).
-    :type similarity: bool (default False)
+    :type similarity: bool (default=False)
     :return: an n-by-n numpy array of pairwise YR1 dissimilarity scores.
     :rtype: np.ndarray
     """
