@@ -31,10 +31,12 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Topic :: Scientific/Engineering :: Information Analysis',
     ],
-    description='',
+    description='Calculate the pairwise-distance matrix for an array of *n* samples by *p* features, '
+                'sing a selection of distance metrics.',
     install_requires=requirements,
     python_requires='>=3.7',
     license="License :: OSI Approved :: Apache Software License",
