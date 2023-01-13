@@ -12,7 +12,7 @@ Changed
 
 Fixed
 ******
-* Fixed bug where setup.py would install a directory named tests into site-packages folder (thanks to `Bipin Kumar <https://github.com/kbipinkumar>`)
+* Fixed bug where setup.py would install a directory named tests into site-packages folder (thanks to `Bipin Kumar <https://github.com/kbipinkumar>`_)
 
 New Contributors
 *****************
