@@ -2,6 +2,22 @@
 History
 =======
 
+1.3.1 (2023-01-13)
+------------------
+
+Changed
+********
+* Added support for Python 3.11.
+* Updated required versions for numpy and scipy.
+
+Fixed
+******
+* Fixed bug where setup.py would install a directory named tests into site-packages folder (thanks to `Bipin Kumar <https://github.com/kbipinkumar>`)
+
+New Contributors
+*****************
+* `Bipin Kumar`_
+
 1.3.0 (2022-12-27)
 ------------------
 
